@@ -1,7 +1,6 @@
 
 // Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
 /obj/item/proc/attack_self(mob/user)
-	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user)
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK_SELF, src)
 
@@ -9,7 +8,7 @@
 		dig_out_shrapnel(user)
 
 // No comment
-/atom/proc/attackby(obj/item/W, mob/living/user,list/mods)
+/atom/proc/attackby(obj/item/W, mob/living/user, list/mods)
 	if(SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, W, user, mods) & COMPONENT_NO_AFTERATTACK)
 		return TRUE
 	SEND_SIGNAL(user, COMSIG_MOB_PARENT_ATTACKBY, src, W)

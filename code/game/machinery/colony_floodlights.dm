@@ -14,6 +14,7 @@ GLOBAL_LIST_INIT(all_breaker_switches, list())
 	idle_power_usage = 0
 	is_on = FALSE
 	var/ispowered = FALSE
+	var/turned_on = FALSE //has to be toggled in engineering
 	///All machinery under our control
 	var/list/machinery_list = list()
 	///The types of machinery we control (define this)
@@ -79,10 +80,10 @@ GLOBAL_LIST_INIT(all_breaker_switches, list())
 		if(ispowered && is_on)
 			toggle_machines()
 		ispowered = FALSE
-		set_is_on(FALSE)
+		turned_on = FALSE
 	else
 		ispowered = TRUE
-		update_icon()
+	update_icon()
 
 /obj/structure/machinery/colony_floodlight_switch/proc/toggle_machines()
 	for(var/obj/structure/machinery/machine as anything in machinery_list)

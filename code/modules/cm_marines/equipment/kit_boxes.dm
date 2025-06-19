@@ -175,11 +175,6 @@
 	desc = "A large case containing the experimental B18 armor platform with additional Smartgun harness integration. Handle with care, it's more expensive than all of your battallion combined.\nDrag this sprite onto yourself to open it up! NOTE: You cannot put items back inside this case."
 	kit_overlay = "b18"
 
-/obj/item/storage/box/spec/B18/fill_preset_inventory()
-	new /obj/item/clothing/gloves/marine/specialist(src)
-	new /obj/item/clothing/head/helmet/marine/specialist(src)
-	new /obj/item/clothing/suit/storage/marine/specialist/smartgunner(src)
-
 /obj/item/storage/box/spec/B16/breacher
 	name = "\improper B16 breacher case"
 	desc = "A large case containing the B16 breacher armor kit, based on a heavily modified B18 defensive armor rig. A small castle-variation logo of the USCM is painted on one of the sides of the case."

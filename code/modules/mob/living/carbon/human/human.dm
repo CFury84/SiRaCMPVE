@@ -133,6 +133,10 @@
 			. += "Self Destruct Status: [SShijack.get_sd_eta()]"
 
 /mob/living/carbon/human/ex_act(severity, direction, datum/cause_data/cause_data)
+	if(HAS_TRAIT(src, TRAIT_INSIDE_VEHICLE) && isVehicle(buckled))
+		buckled.ex_act(severity, direction, cause_data)
+		return
+
 	if(body_position == LYING_DOWN && direction)
 		severity *= EXPLOSION_PRONE_MULTIPLIER
 
@@ -269,13 +273,6 @@
 				if(L in O.implants)
 					return TRUE
 	return FALSE
-
-/**
- * Handles any storage containers that the human is looking inside when auto-observed.
- */
-/mob/living/carbon/human/auto_observed(mob/dead/observer/observer)
-	. = ..()
-
 
 /**
  * Handles any storage containers that the human is looking inside when auto-observed.
@@ -824,6 +821,18 @@
 	if(istype(head, /obj/item/clothing))
 		var/obj/item/clothing/C = head
 		number += C.eye_protection
+		if(istype(head, /obj/item/clothing/head/helmet/marine) || istype(head, /obj/item/clothing/head/cmcap))
+			var/list/contents_of_headgear = null
+			if(istype(head, /obj/item/clothing/head/helmet/marine))
+				var/obj/item/clothing/head/helmet/marine/headgear = head
+				contents_of_headgear = headgear.pockets.contents
+			if(istype(head, /obj/item/clothing/head/cmcap))
+				var/obj/item/clothing/head/cmcap/headgear = head
+				contents_of_headgear = headgear.pockets.contents
+			for(var/obj/item/clothing/glasses/mgoggles/goggles in contents_of_headgear)
+				if(goggles.activated == TRUE)
+					number += goggles.eye_protection
+
 	if(istype(wear_mask, /obj/item/clothing))
 		number += wear_mask.eye_protection
 	if(glasses)

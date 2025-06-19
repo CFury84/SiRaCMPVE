@@ -7,7 +7,7 @@
 	icon_state = "vehicle_gear"
 
 	req_access = list(ACCESS_MARINE_CREWMAN)
-	vendor_role = list(JOB_TANK_CREW)
+	vendor_role = list(JOB_TANK_CREW, JOB_MECH_OP)
 	bound_width = 64
 
 	unslashable = TRUE
@@ -35,9 +35,9 @@
 	return ..()
 
 /obj/structure/machinery/cm_vending/gear/vehicle_crew/get_appropriate_vend_turf(mob/living/carbon/human/H)
-	var/turf/T = loc
-	T = get_step(T, SOUTH)
-	return T
+	var/turf/target = get_turf(src)
+	target = get_step(target, SOUTH)
+	return target
 
 /obj/structure/machinery/cm_vending/gear/vehicle_crew/tip_over() //we don't do this here
 	return
@@ -45,7 +45,7 @@
 /obj/structure/machinery/cm_vending/gear/vehicle_crew/flip_back()
 	return
 
-/obj/structure/machinery/cm_vending/ex_act(severity)
+/obj/structure/machinery/cm_vending/gear/vehicle_crew/ex_act(severity)
 	if(severity > EXPLOSION_THRESHOLD_LOW)
 		if(prob(25))
 			malfunction()
@@ -119,11 +119,6 @@
 			vend_fail()
 			return FALSE
 		budget_points -= L[2]
-
-/obj/structure/machinery/cm_vending/gear/vehicle_crew/get_appropriate_vend_turf(mob/living/carbon/human/H)
-	var/turf/T = get_turf(src)
-	T = get_step(T, SOUTH)
-	return T
 
 GLOBAL_LIST_INIT(cm_vending_vehicle_crew_tank, list(
 	list("STARTING KIT SELECTION:", 0, null, null, null),
@@ -205,7 +200,7 @@ GLOBAL_LIST_INIT(cm_vending_vehicle_crew_arc, list(
 	desc = "An automated weapon rack hooked up to a small storage of standard-issue weapons. Can be accessed only by the Vehicle Crewmen."
 	icon_state = "guns"
 	req_access = list(ACCESS_MARINE_CREWMAN)
-	vendor_role = list(JOB_TANK_CREW)
+	vendor_role = list(JOB_TANK_CREW, JOB_MECH_OP)
 	vend_flags = VEND_CLUTTER_PROTECTION | VEND_LIMITED_INVENTORY | VEND_TO_HAND
 
 	listed_products = list(
@@ -344,7 +339,7 @@ GLOBAL_LIST_INIT(cm_vending_clothing_vehicle_crew, list(
 	name = "\improper ColMarTech Vehicle Crewman Equipment Rack"
 	desc = "An automated rack hooked up to a colossal storage of Vehicle Crewmen standard-issue equipment."
 	req_access = list(ACCESS_MARINE_CREWMAN)
-	vendor_role = list(JOB_TANK_CREW)
+	vendor_role = list(JOB_TANK_CREW, JOB_MECH_OP)
 
 /obj/structure/machinery/cm_vending/clothing/vehicle_crew/get_listed_products(mob/user)
 	return GLOB.cm_vending_clothing_vehicle_crew

@@ -34,6 +34,8 @@
 	var/charge_use = 5
 	can_block_movement = TRUE
 
+	var/heal_increment = 10
+
 //-------------------------------------------
 // Standard procs
 //-------------------------------------------
@@ -77,7 +79,7 @@
 				if(do_after(user, 20, INTERRUPT_ALL, BUSY_ICON_FRIENDLY))
 					if(!src || !WT.isOn())
 						return
-					health = min(maxhealth, health+10)
+					health = min(maxhealth, health + heal_increment)
 					user.visible_message(SPAN_NOTICE("[user] repairs [src]."),SPAN_NOTICE("You repair [src]."))
 			else
 				to_chat(user, SPAN_NOTICE("[src] does not need repairs."))
@@ -248,7 +250,6 @@
 /obj/vehicle/proc/RunOver(mob/living/carbon/human/H)
 	return //write specifics for different vehicles
 
-
 /obj/vehicle/afterbuckle(mob/M)
 	. = ..()
 	if(. && buckled_mob == M)
@@ -259,8 +260,6 @@
 		M.pixel_y = initial(buckled_mob.pixel_y)
 		M.old_y = initial(buckled_mob.pixel_y)
 
-/obj/vehicle/afterbuckle(mob/M)
-	. = ..()
 	if(seats[VEHICLE_DRIVER] == null)
 		seats[VEHICLE_DRIVER] = M
 
