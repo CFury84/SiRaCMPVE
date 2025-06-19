@@ -547,7 +547,7 @@
 		to_world(SPAN_DEBUG("([L]) Hit chance: [hit_chance] | Roll: [hit_roll]"))
 		#endif
 
-		if(hit_chance > hit_roll)
+		if(hit_chance > hit_roll && !(L.status_flags & RECENTSPAWN))
 			#if DEBUG_HIT_CHANCE
 			to_world(SPAN_DEBUG("([L]) Hit."))
 			#endif
@@ -830,6 +830,9 @@
 	return src == P.original
 
 /obj/effect/alien/egg/get_projectile_hit_boolean(obj/projectile/P)
+	return src == P.original
+
+/obj/effect/pathogen/spore_sac/get_projectile_hit_boolean(obj/projectile/P)
 	return src == P.original
 
 /obj/effect/alien/resin/trap/get_projectile_hit_boolean(obj/projectile/P)
