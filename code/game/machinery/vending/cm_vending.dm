@@ -79,7 +79,6 @@ IN_USE used for vending/denying
 	update_icon()
 
 /obj/structure/machinery/cm_vending/update_icon()
-
 	//restoring sprite to initial
 	overlays.Cut()
 	//icon_state = initial(icon_state) //shouldn't be needed but just in case

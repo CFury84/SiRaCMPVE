@@ -141,6 +141,7 @@
 	pixel_x = -134
 	pixel_y = -134
 	pixel_z = -480
+	indestructible = TRUE
 
 /obj/effect/temp_visual/dropship_flyby/Initialize()
 	. = ..()
@@ -176,6 +177,7 @@
 	pixel_x = -134
 	pixel_y = -134
 	alpha = 0
+	indestructible = TRUE
 
 /obj/effect/temp_visual/dropship_hover/Initialize()
 	. = ..()
@@ -190,13 +192,14 @@
 /obj/effect/temp_visual/dropship_hover/krokodil
 	icon_state = "krokodil"
 
-/obj/effect/temp_visual/heavyimpact
+/obj/effect/temp_visual/heavyimpact_cas
 	name = "heavy impact"
 	icon = 'icons/effects/heavyimpact.dmi'
 	icon_state = ""
 	duration = 13
+	indestructible = TRUE
 
-/obj/effect/temp_visual/heavyimpact/Initialize(mapload)
+/obj/effect/temp_visual/heavyimpact_cas/Initialize(mapload)
 	. = ..()
 	flick("heavyimpact", src)
 
@@ -209,6 +212,7 @@
 	duration = 0.2 SECONDS
 	pixel_z = 200
 	pixel_x = 16
+	indestructible = TRUE
 
 /obj/effect/temp_visual/falling_obj/Initialize()
 	. = ..()
