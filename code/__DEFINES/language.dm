@@ -4,6 +4,7 @@
 #define LANGUAGE_RUSSIAN "Russian"
 #define LANGUAGE_RUSPATOIS "Russian Patois"
 #define LANGUAGE_GERMAN "German"
+#define LANGUAGE_SCANDINAVIAN "Scandinavian"
 #define LANGUAGE_SPANISH "Spanish"
 #define LANGUAGE_PORTUGUESE "Portuguese"
 #define LANGUAGE_FRENCH "French"
@@ -15,6 +16,9 @@
 
 #define LANGUAGE_XENOMORPH "Xenomorph"
 #define LANGUAGE_HIVEMIND "Hivemind"
+
+#define LANGUAGE_PATHOGEN "Mycelial Rattle"
+#define LANGUAGE_PATHOGEN_MIND "Mycelial Link"
 
 #define LANGUAGE_APOLLO "APOLLO Link"
 

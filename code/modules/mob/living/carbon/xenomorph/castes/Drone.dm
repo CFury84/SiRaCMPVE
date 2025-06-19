@@ -77,9 +77,12 @@
 	)
 	gib_chance = 100
 
+	acid_blood_damage = 25 /// Stronger acid blood. "Should be a define in the future" per 32bitguy
+
 	icon_xeno = 'icons/mob/xenos/drone.dmi'
 	icon_xenonid = 'icons/mob/xenonids/drone.dmi'
 	weed_food_icon = 'icons/mob/xenos/weeds_48x48.dmi'
+	mycelium_food_icon = 'icons/mob/pathogen/pathogen_weeds_48x48.dmi'
 	weed_food_states = list("Drone_1","Drone_2","Drone_3")
 	weed_food_states_flipped = list("Drone_1","Drone_2","Drone_3")
 
