@@ -285,7 +285,6 @@
 			else
 				to_chat(user, SPAN_NOTICE("You failed to patch [src], you need more metal sheets in your offhand."))
 
-/obj/structure/watchtower/get_examine_text(mob/user)
 	. = ..()
 
 	var/dam = health / max_health
