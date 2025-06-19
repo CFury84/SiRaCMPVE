@@ -62,7 +62,7 @@
 		/obj/item/attachable/magnetic_harness,
 		/obj/item/attachable/stock/rifle,
 		/obj/item/attachable/stock/rifle/collapsible,
-		/obj/item/attachable/attached_gun/grenade,
+		/obj/item/attachable/attached_gun/grenade/mk1,
 		/obj/item/attachable/attached_gun/flamer,
 		/obj/item/attachable/attached_gun/flamer/advanced,
 		/obj/item/attachable/attached_gun/shotgun,
@@ -70,8 +70,8 @@
 		/obj/item/attachable/scope,
 		/obj/item/attachable/scope/mini,
 	)
-	flags_gun_features = GUN_AUTO_EJECTOR|GUN_CAN_POINTBLANK|GUN_AMMO_COUNTER|GUN_AUTO_EJECT_CASINGS
-	starting_attachment_types = list(/obj/item/attachable/attached_gun/grenade, /obj/item/attachable/stock/rifle/collapsible)
+	flags_gun_features = GUN_AUTO_EJECTOR|GUN_CAN_POINTBLANK|GUN_AMMO_COUNTER
+	starting_attachment_types = list(/obj/item/attachable/attached_gun/grenade/mk1, /obj/item/attachable/stock/rifle/collapsible)
 	map_specific_decoration = TRUE
 	start_automatic = TRUE
 
@@ -446,7 +446,7 @@
 
 /obj/item/weapon/gun/rifle/ag80
 	name = "\improper AG80 pulse rifle"
-	desc = "Pulse action 9.7x16mm caseless assault rifle of the UPPAC Naval Infantry. Only recently entered service and has yet to see full integration."
+	desc = "Pulse action 9.7x16mm caseless assault rifle of the UPPAC Naval Infantry. Only recently entered service and has yet to see full integration. The design suggests that it is a carbine sibling to the Type-71's rifle role, rather than an outright replacement."
 	icon = 'icons/obj/items/weapons/guns/guns_by_faction/upp.dmi'
 	icon_state = "ag80"
 	item_state = "ag80"
@@ -807,7 +807,7 @@
 		/obj/item/attachable/magnetic_harness,
 	)
 
-	flags_gun_features = GUN_CAN_POINTBLANK|GUN_WIELDED_FIRING_ONLY
+	flags_gun_features = GUN_CAN_POINTBLANK|GUN_WIELDED_FIRING_ONLY|GUN_AUTO_EJECT_CASINGS
 
 /obj/item/weapon/gun/rifle/mar40/lmg/set_gun_attachment_offsets()
 	attachable_offset = list("muzzle_x" = 32, "muzzle_y" = 16,"rail_x" = 16, "rail_y" = 20, "under_x" = 26, "under_y" = 16, "stock_x" = 24, "stock_y" = 13, "side_rail_x" = 25, "side_rail_y" = 17)
@@ -829,7 +829,7 @@
 /obj/item/weapon/gun/rifle/mar40/lmg/tactical
 	desc = "A cheap, reliable  chambered in 8.8x29mm. Commonly found in the hands of slightly better funded criminals. This one has been equipped with an after-market ammo-counter."
 	starting_attachment_types = list(/obj/item/attachable/mar50barrel, /obj/item/attachable/bipod, /obj/item/attachable/magnetic_harness)
-	flags_gun_features = GUN_AMMO_COUNTER|GUN_CAN_POINTBLANK|GUN_WIELDED_FIRING_ONLY
+	flags_gun_features = GUN_AMMO_COUNTER|GUN_CAN_POINTBLANK|GUN_WIELDED_FIRING_ONLY|GUN_AUTO_EJECT_CASINGS
 //-------------------------------------------------------
 //M16 RIFLE
 
@@ -894,7 +894,7 @@
 		/obj/item/attachable/flashlight,
 	)
 
-	flags_gun_features = GUN_CAN_POINTBLANK|GUN_ANTIQUE
+	flags_gun_features = GUN_CAN_POINTBLANK|GUN_ANTIQUE|GUN_AUTO_EJECT_CASINGS
 
 /obj/item/weapon/gun/rifle/m16/handle_starting_attachment()
 	..()
@@ -975,7 +975,7 @@
 	item_state = "m16"
 	current_mag = /obj/item/ammo_magazine/rifle/m16
 
-	flags_gun_features = GUN_CAN_POINTBLANK|GUN_ANTIQUE
+	flags_gun_features = GUN_CAN_POINTBLANK|GUN_ANTIQUE|GUN_AUTO_EJECT_CASINGS
 
 	fire_sound = 'sound/weapons/gun_m16.ogg'
 	reload_sound = 'sound/weapons/handling/gun_m16_reload.ogg'
@@ -1082,7 +1082,7 @@
 		/obj/item/attachable/extended_barrel,
 	)
 
-	flags_gun_features = GUN_CAN_POINTBLANK|GUN_ANTIQUE
+	flags_gun_features = GUN_CAN_POINTBLANK|GUN_ANTIQUE|GUN_AUTO_EJECT_CASINGS
 
 /obj/item/weapon/gun/rifle/ar10/handle_starting_attachment()
 	..()
@@ -1201,7 +1201,10 @@
 		/obj/item/attachable/scope/pve,
 		/obj/item/attachable/sling,
 	)
-	starting_attachment_types = list(/obj/item/attachable/bipod/integral, /obj/item/attachable/stock/rifle/collapsible)
+	starting_attachment_types = list(
+		/obj/item/attachable/bipod/integral,
+		/obj/item/attachable/stock/rifle/collapsible,
+	)
 
 	flags_gun_features = GUN_CAN_POINTBLANK|GUN_AMMO_COUNTER
 	gun_category = GUN_CATEGORY_HEAVY
@@ -1229,15 +1232,46 @@
 	wield_delay = WIELD_DELAY_SLOW
 
 /obj/item/weapon/gun/rifle/lmg/tactical
+	desc = "A modification of a modification. Swaps the bipod for a grip, returning it closer to its original assault rifle state."
 	current_mag = /obj/item/ammo_magazine/hpr_box/ap
-	starting_attachment_types = list(/obj/item/attachable/magnetic_harness, /obj/item/attachable/suppressor, /obj/item/attachable/angledgrip)
+	attachable_allowed = list(
+		/obj/item/attachable/suppressor,
+		/obj/item/attachable/reddot,
+		/obj/item/attachable/reflex,
+		/obj/item/attachable/flashlight,
+		/obj/item/attachable/angledgrip,
+		/obj/item/attachable/stock/rifle/collapsible,
+		/obj/item/attachable/heavy_barrel,
+		/obj/item/attachable/compensator,
+		/obj/item/attachable/burstfire_assembly,
+		/obj/item/attachable/magnetic_harness,
+		/obj/item/attachable/scope/pve,
+		/obj/item/attachable/sling,
+	)
+	starting_attachment_types = list(
+		/obj/item/attachable/magnetic_harness,
+		/obj/item/attachable/suppressor,
+		/obj/item/attachable/stock/rifle/collapsible,
+		/obj/item/attachable/angledgrip,
+	)
+
 /obj/item/weapon/gun/rifle/lmg/tactical/set_gun_config_values()
 	..()
 	damage_mult = BASE_BULLET_DAMAGE_MULT + BULLET_DAMAGE_MULT_TIER_2//equal to m41a dmg
 
+/obj/item/weapon/gun/rifle/lmg/tactical/set_gun_attachment_offsets()
+	attachable_offset = list("muzzle_x" = 33, "muzzle_y" = 19,"rail_x" = 10, "rail_y" = 23, "under_x" = 26, "under_y" = 13, "stock_x" = 24, "stock_y" = 13)
+
 /obj/item/weapon/gun/rifle/lmg/army
+	desc = "The US Army's adoption of the M41AE2 adds a longer barrel and improved retention system, operating in a more traditional machine gun role."
 	current_mag = /obj/item/ammo_magazine/hpr_box/ap
-	starting_attachment_types = list(/obj/item/attachable/magnetic_harness, /obj/item/attachable/extended_barrel, /obj/item/attachable/bipod/integral, /obj/item/attachable/stock/rifle/collapsible)
+	starting_attachment_types = list(
+		/obj/item/attachable/magnetic_harness,
+		/obj/item/attachable/extended_barrel,
+		/obj/item/attachable/stock/rifle/collapsible,
+		/obj/item/attachable/bipod/integral,
+	)
+
 /obj/item/weapon/gun/rifle/lmg/army/set_gun_config_values()
 	..()
 	damage_mult = BASE_BULLET_DAMAGE_MULT + BULLET_DAMAGE_MULT_TIER_2//equal to m41a dmg

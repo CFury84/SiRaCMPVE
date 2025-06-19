@@ -254,6 +254,8 @@
 	VAR_PROTECTED/start_semiauto = TRUE
 	/// If this gun should spawn with automatic fire. Protected due to it never needing to be edited.
 	VAR_PROTECTED/start_automatic = FALSE
+	/// If this gun should spawn with burst fire. Protected due to it never needing to be edited.
+	VAR_PROTECTED/start_burstfire = FALSE
 	/// The type of projectile that this gun should shoot
 	var/projectile_type = /obj/projectile
 	/// The multiplier for how much slower this should fire in automatic mode. 1 is normal, 1.2 is 20% slower, 2 is 100% slower, etc. Protected due to it never needing to be edited.
@@ -1146,7 +1148,7 @@ and you're good to go.
 	if(active_attachable?.flags_attach_features & ATTACH_WEAPON) //Attachment activated and is a weapon.
 		check_for_attachment_fire = TRUE
 		if(!(active_attachable.flags_attach_features & ATTACH_PROJECTILE)) //If it's unique projectile, this is where we fire it.
-			if((active_attachable.current_rounds <= 0) && !(active_attachable.flags_attach_features & ATTACH_IGNORE_EMPTY))
+			if((active_attachable.current_rounds <= 0) && !(active_attachable.flags_attach_features & ATTACH_IGNORE_EMPTY) && !active_attachable.in_chamber)
 				click_empty(user) //If it's empty, let them know.
 				to_chat(user, SPAN_WARNING("[active_attachable] is empty!"))
 				to_chat(user, SPAN_NOTICE("You disable [active_attachable]."))
@@ -1220,15 +1222,15 @@ and you're good to go.
 	var/bullet_velocity = projectile_to_fire?.ammo?.shell_speed + velocity_add
 
 	if(params) // Apply relative clicked position from the mouse info to offset projectile
-		if(!params["click_catcher"])
-			if(params["vis-x"])
-				projectile_to_fire.p_x = text2num(params["vis-x"])
-			else if(params["icon-x"])
-				projectile_to_fire.p_x = text2num(params["icon-x"])
-			if(params["vis-y"])
-				projectile_to_fire.p_y = text2num(params["vis-y"])
-			else if(params["icon-y"])
-				projectile_to_fire.p_y = text2num(params["icon-y"])
+		if(!params[CLICK_CATCHER])
+			if(params[VIS_X])
+				projectile_to_fire.p_x = text2num(params[VIS_X])
+			else if(params[ICON_X])
+				projectile_to_fire.p_x = text2num(params[ICON_X])
+			if(params[VIS_Y])
+				projectile_to_fire.p_y = text2num(params[VIS_Y])
+			else if(params[ICON_Y])
+				projectile_to_fire.p_y = text2num(params[ICON_Y])
 			var/atom/movable/clicked_target = original_target
 			if(istype(clicked_target))
 				projectile_to_fire.p_x -= clicked_target.bound_width / 2
@@ -2099,7 +2101,7 @@ not all weapons use normal magazines etc. load_into_chamber() itself is designed
 	SIGNAL_HANDLER
 
 	var/list/modifiers = params2list(params)
-	if(modifiers["shift"] || modifiers["middle"] || modifiers["right"])
+	if(modifiers[SHIFT_CLICK] || modifiers[MIDDLE_CLICK] || modifiers[RIGHT_CLICK] || modifiers[BUTTON4] || modifiers[BUTTON5])
 		return FALSE
 
 	// Don't allow doing anything else if inside a container of some sort, like a locker.
@@ -2174,6 +2176,7 @@ not all weapons use normal magazines etc. load_into_chamber() itself is designed
 
 	return TRUE
 
+/// For ejecting the spent casing from corresponding guns
 /obj/item/weapon/gun/proc/eject_casing()
 	if(empty_casings == 0)
 		return
@@ -2184,8 +2187,8 @@ not all weapons use normal magazines etc. load_into_chamber() itself is designed
 		if(!ejection_turf)
 			return
 
-		var/obj/item/ammo_casing/found_casings = null
-		for(var/obj/item/ammo_casing/C in ejection_turf)
+		var/obj/effect/decal/ammo_casing/found_casings = null
+		for(var/obj/effect/decal/ammo_casing/C in ejection_turf)
 			if(C.type == ammo.shell_casing)
 				found_casings = C
 				break

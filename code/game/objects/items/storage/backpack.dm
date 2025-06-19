@@ -12,11 +12,6 @@
 	max_w_class = SIZE_MEDIUM
 	storage_slots = null
 	max_storage_space = 21
-	cant_hold = list(/obj/item/storage/firstaid, /obj/item/storage/toolkit)
-	can_hold_skill = list(
-		/obj/item/storage/firstaid = list(SKILL_MEDICAL, SKILL_MEDICAL_MEDIC),
-		/obj/item/storage/toolkit = list(SKILL_ENGINEER, SKILL_ENGINEER_TRAINED),
-		)
 	drop_sound = "armorequip"
 	var/worn_accessible = FALSE //whether you can access its content while worn on the back
 	var/obj/item/card/id/locking_id = null
@@ -1244,9 +1239,6 @@ GLOBAL_LIST_EMPTY_TYPED(radio_packs, /obj/item/storage/backpack/marine/satchel/r
 	for(var/obj/item/attachment in bag_attachments)
 		. += "[icon2html(attachment, user)] \A [attachment] is attached to it."
 
-/obj/item/storage/backpack/marine/imp/get_examine_line(mob/user)
-	. = ..()
-
 	var/list/items = list()
 
 	if(top_slot)
@@ -1274,9 +1266,6 @@ GLOBAL_LIST_EMPTY_TYPED(radio_packs, /obj/item/storage/backpack/marine/satchel/r
 				things += "[icon2html(attachment)] \a [attachment]"
 			to_chat(usr, "Attached to \the [src] are [english_list(things)].")
 		return
-
-/obj/item/storage/backpack/marine/imp/get_examine_text(mob/user)
-	. = ..()
 
 	. += SPAN_NOTICE("Attach items by holding <b>Ctrl</b> and clicking the bag with the item, detach by holding <b>Alt</b>.")
 

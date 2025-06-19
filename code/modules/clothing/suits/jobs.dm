@@ -213,7 +213,7 @@
 		/obj/item/tool/lighter,
 		/obj/item/weapon/baton,
 		/obj/item/ammo_magazine,
-		/obj/item/ammo_casing,
+		/obj/effect/decal/ammo_casing,
 		/obj/item/weapon/baton,
 		/obj/item/restraint/handcuffs,
 		/obj/item/device/binoculars,

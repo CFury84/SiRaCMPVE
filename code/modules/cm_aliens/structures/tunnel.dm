@@ -201,9 +201,9 @@
 	if(!isxeno(user) || !isfriendly(user))
 		return ..()
 	var/mob/living/carbon/xenomorph/X = user
-	if(mods["ctrl"] && pick_tunnel(X))//Returning to original tunnel
+	if(mods[CTRL_CLICK] && pick_tunnel(X))//Returning to original tunnel
 		return TRUE
-	else if(mods["alt"] && exit_tunnel(X))//Exiting the tunnel
+	else if(mods[ALT_CLICK] && exit_tunnel(X))//Exiting the tunnel
 		return TRUE
 	. = ..()
 
@@ -211,6 +211,9 @@
 	. = attack_alien(M)
 
 /obj/structure/tunnel/attack_alien(mob/living/carbon/xenomorph/M)
+	if(SEND_SIGNAL(M, COMSIG_XENO_ENTER_TUNNEL) & COMPONENT_CANCEL_TUNNEL)
+		return XENO_NO_DELAY_ACTION
+
 	if(!istype(M) || M.is_mob_incapacitated(TRUE))
 		return XENO_NO_DELAY_ACTION
 
